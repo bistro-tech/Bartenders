@@ -1,0 +1,13 @@
+# Ignoring node modules
+/node_modules
+
+# Ignoring variable environment's file
+.env
+
+#Ignoring assets folder
+/assets/faerys
+
+#Ignoring generated Images
+/generator/*.png
+
+/commands/utility/help.js
