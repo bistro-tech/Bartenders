@@ -1,20 +1,17 @@
-// Require the necessary discord.js classes
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, MessageFlags } = require('discord.js');
 
-// Using environment variables
 require('dotenv').config();
 const token = process.env.DISCORD_Token;
+const Disboard = process.env.DisboardId;
+const channelId = process.env.channelId;
 
-// Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
-const eventsPath = path.join(__dirname, 'events');
-const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
 for (const folder of commandFolders) {
 	const commandsPath = path.join(foldersPath, folder);
@@ -31,20 +28,26 @@ for (const folder of commandFolders) {
 	}
 }
 
-for (const file of eventFiles) {
-	const filePath = path.join(eventsPath, file);
-	const event = require(filePath);
-
-	if (event.once) {
-		client.once(event.name, (...args) => event.execute(...args));
-	}
-	else {
-		client.on(event.name, (...args) => event.execute(...args));
-	}
-}
-
-client.once(Events.ClientReady, readyClient => {
+client.once(Events.ClientReady, async readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+
+	setInterval(async () => {
+		try {
+			const channel = await client.channels.fetch(channelId);
+			const messages = await channel.messages.fetch({ limit: 100 });
+			const lastMessageFromDisboard = messages.find(m => m.author.id === Disboard);
+			const twoHours = 2 * 60 * 60 * 1000;
+			const now = Date.now();
+
+			if ((now - lastMessageFromDisboard.createdTimestamp) > twoHours) {
+				// eslint-disable-next-line quotes
+				await channel.send(`<@&1272223052176031806>, un petit bump ça vous dit ? Merci pour l'aide précieuse que vous apportez au serveur !`);
+			}
+		}
+		catch (error) {
+			console.error('Erreur dans le check du message Disboard:', error);
+		}
+	}, 30 * 60 * 1000);
 });
 
 client.on(Events.InteractionCreate, async interaction => {

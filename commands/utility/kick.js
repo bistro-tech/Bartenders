@@ -11,9 +11,9 @@ module.exports = {
 				.setRequired(true)),
 	async execute(interaction) {
 		const user = interaction.options.getMember('utilisateur');
-		if (member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
+		if (user.permissions.has(PermissionsBitField.Flags.KickMembers)) {
 			await user.kick();
-			await interaction.reply({ content: `${user.tag} a été kick`, flags: MessageFlags.Ephemeral });
+			await interaction.reply({ content: `${user.username} a été kick`, flags: MessageFlags.Ephemeral });
 		}
 		else {
 			await interaction.reply({ content: 'Tu n\'as pas la permission pour kick', flags: MessageFlags.Ephemeral });

@@ -11,6 +11,7 @@ module.exports = {
 				.setRequired(true)),
 	async execute(interaction) {
 		const user = interaction.options.getUser('utilisateur');
+		const member = await interaction.guild.members.fetch(user.id);
 		if (member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
 			await interaction.guild.members.ban(user);
 			await interaction.reply({ content: `${user.username} a été banni`, flags: MessageFlags.Ephemeral });
