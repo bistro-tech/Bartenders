@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits, MessageFlags } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits, MessageFlags, ActivityType } = require('discord.js');
 
 require('dotenv').config();
 const token = process.env.DISCORD_Token;
@@ -30,6 +30,7 @@ for (const folder of commandFolders) {
 
 client.once(Events.ClientReady, async readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+	client.user.setActivity('Les membres de Bistro Tech', { type: ActivityType.Watching });
 });
 
 client.on(Events.InteractionCreate, async interaction => {
