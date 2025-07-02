@@ -24,5 +24,6 @@ module.exports = {
 
 		await interaction.guild.members.unban(user);
 		await interaction.reply({ content: `${user.tag} a été débanni`, flags: MessageFlags.Ephemeral });
+		console.log('Commande Unban effectué');
 	},
 };

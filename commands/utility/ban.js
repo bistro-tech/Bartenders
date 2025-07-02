@@ -15,6 +15,7 @@ module.exports = {
 		if (member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
 			await interaction.guild.members.ban(user);
 			await interaction.reply({ content: `${user.username} a été banni`, flags: MessageFlags.Ephemeral });
+			console.log('Commande Ban effectué');
 		}
 		else {
 			await interaction.reply({ content: 'Tu n\'as pas la permission pour ban', flags: MessageFlags.Ephemeral });
