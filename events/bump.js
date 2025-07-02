@@ -1,9 +1,7 @@
 const Disboard = process.env.DisboardId;
 const channelId = process.env.channelId;
-const { Client, GatewayIntentBits } = require('discord.js');
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 
-module.exports = () => {
+module.exports = (client) => {
 	console.log('Fonctionnalité du bump visible !');
     	setInterval(async () => {
 		try {
@@ -22,5 +20,5 @@ module.exports = () => {
 		catch (error) {
 			console.error('Erreur dans le check du message Disboard:', error);
 		}
-	}, 30 * 60 * 1000);
+	}, 1 * 60 * 1000);
 };
