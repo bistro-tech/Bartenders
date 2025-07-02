@@ -4,10 +4,10 @@ const { Client, Collection, Events, GatewayIntentBits, MessageFlags } = require(
 
 require('dotenv').config();
 const token = process.env.DISCORD_Token;
-const Disboard = process.env.DisboardId;
-const channelId = process.env.channelId;
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
+require('./events/twitchLive')(client);
+require('./events/bump')(client);
 
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
@@ -30,24 +30,6 @@ for (const folder of commandFolders) {
 
 client.once(Events.ClientReady, async readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
-
-	setInterval(async () => {
-		try {
-			const channel = await client.channels.fetch(channelId);
-			const messages = await channel.messages.fetch({ limit: 100 });
-			const lastMessageFromDisboard = messages.find(m => m.author.id === Disboard);
-			const twoHours = 2 * 60 * 60 * 1000;
-			const now = Date.now();
-
-			if ((now - lastMessageFromDisboard.createdTimestamp) > twoHours) {
-				// eslint-disable-next-line quotes
-				await channel.send(`<@&1272223052176031806>, un petit bump ça vous dit ? Merci pour l'aide précieuse que vous apportez au serveur !`);
-			}
-		}
-		catch (error) {
-			console.error('Erreur dans le check du message Disboard:', error);
-		}
-	}, 30 * 60 * 1000);
 });
 
 client.on(Events.InteractionCreate, async interaction => {
