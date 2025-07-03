@@ -50,8 +50,8 @@ module.exports = {
     const gifPath = path.join(__dirname, '../..', 'assets', randomGif);
     const shouldDelete = Math.floor(Math.random() * 5) !== 0;
 
-    const sentMessage = await interaction.reply({
-      content: `<@${user.id}>`,
+    const sentMessage = await interaction.channel.send({
+      content: `<@ ${interaction.user.id} a annoy ${user.id}>`,
     });
 
     if (shouldDelete) {
