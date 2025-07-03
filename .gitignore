@@ -5,9 +5,6 @@
 .env
 
 #Ignoring assets folder
-/assets/faerys
-
-#Ignoring generated Images
-/generator/*.png
+/assets
 
 /commands/utility/help.js

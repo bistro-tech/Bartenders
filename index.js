@@ -22,7 +22,7 @@ const client = new Client({
 });
 require('./events/twitchLive')(client);
 require('./events/bump')(client);
-require('./events/antiRaid')(client);
+// require('./events/antiRaid')(client);
 
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
@@ -48,7 +48,7 @@ for (const folder of commandFolders) {
 
 client.once(Events.ClientReady, async (readyClient) => {
   console.log(`Ready! Logged in as ${readyClient.user.tag}`);
-  client.user.setActivity('Les membres de Bistro Tech', {
+  client.user.setActivity("l'ouverture du Bistrot", {
     type: ActivityType.Watching,
   });
 });
