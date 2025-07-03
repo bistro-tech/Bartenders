@@ -20,5 +20,5 @@ module.exports = (client) => {
 		catch (error) {
 			console.error('Erreur dans le check du message Disboard:', error);
 		}
-	}, 1 * 60 * 1000);
+	}, 30 * 60 * 1000);
 };
