@@ -67,12 +67,15 @@ module.exports = {
 
 function CheckIfUserCanAnnoy(DateNow, interaction) {
   const lastAnnoyRequest = LastAnnoy.get(interaction.user.id);
-
+  const member = interaction.member;
   if (lastAnnoyRequest && lastAnnoyRequest > DateNow - TWO_HOURS) {
     interaction.reply({
       content: 'Tu as déjà annoy durant les 2 dernières heures',
       ephemeral: true,
     });
+    if (member && member.timeout) {
+      member.timeout(60_000).catch(console.error);
+    }
     return false;
   }
   return true;
