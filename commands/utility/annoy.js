@@ -69,8 +69,10 @@ function CheckIfUserCanAnnoy(DateNow, interaction) {
   const lastAnnoyRequest = LastAnnoy.get(interaction.user.id);
   const member = interaction.member;
   if (lastAnnoyRequest && lastAnnoyRequest > DateNow - TWO_HOURS) {
+    const timeLeft = TWO_HOURS - (DateNow - lastAnnoyRequest);
+    const formatted = formatTime(timeLeft);
     interaction.reply({
-      content: 'Tu as déjà annoy durant les 2 dernières heures',
+      content: `Tu as déjà annoy durant les 2 dernières heures, il te reste ${formatted} avant de pouvoir à nouveau embêter quelqu'un !`,
       ephemeral: true,
     });
     if (member && member.timeout) {
@@ -92,4 +94,16 @@ function CheckIfUserCanBeAnnoy(DateNow, interaction, user) {
     return false;
   }
   return true;
+}
+
+function formatTime(ms) {
+  const totalSeconds = Math.floor(ms / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  return `${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`;
+}
+
+function pad(num) {
+  return num.toString().padStart(2, '0');
 }
