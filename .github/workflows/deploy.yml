@@ -21,7 +21,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/ubuntu/Bistro-tech/Bartenders || exit 1
+            cd /home/ubuntu/Bistro-Tech/Bartenders || exit 1
             sudo docker rm bartender || true
             git pull origin main
             sudo docker build -t bartender .
