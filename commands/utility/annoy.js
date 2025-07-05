@@ -38,7 +38,7 @@ module.exports = {
   async execute(interaction) {
     const now = Date.now();
 
-    // if (!CheckIfUserCanAnnoy(now, interaction)) return;
+    if (!CheckIfUserCanAnnoy(now, interaction)) return;
 
     const user = interaction.options.getUser('utilisateur');
 
@@ -49,7 +49,7 @@ module.exports = {
       });
     }
 
-    // if (!CheckIfUserCanBeAnnoy(now, interaction, user)) return;
+    if (!CheckIfUserCanBeAnnoy(now, interaction, user)) return;
 
     LastAnnoyed.set(user.id, now);
     LastAnnoy.set(interaction.user.id, now);
