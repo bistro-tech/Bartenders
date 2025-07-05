@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 const path = require('node:path');
 const TWO_HOURS = 2 * 60 * 60 * 1000;
 
@@ -60,7 +60,7 @@ module.exports = {
 
     await interaction.reply({
       files: [gifPath],
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
   },
 };
