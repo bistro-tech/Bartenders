@@ -1,13 +1,21 @@
-const { SlashCommandBuilder, MessageFlags } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags, Message } = require('discord.js');
 const path = require('node:path');
 const TWO_HOURS = 2 * 60 * 60 * 1000;
 
-const gifs = [
+const successgifs = [
   'alley-oop-luka-doncic.gif',
   'cool-fun.gif',
   'shreks-meme.gif',
   'sneaky-sneaking.gif',
   'victory-done.gif',
+];
+
+const failgifs = [
+  'bart.gif',
+  'falling-falling-down-stairs.gif',
+  'mission-failed-mario.gif',
+  'mission-failed.gif',
+  'shocked-surprised.gif',
 ];
 
 // Map of annoyed user
@@ -30,7 +38,7 @@ module.exports = {
   async execute(interaction) {
     const now = Date.now();
 
-    if (!CheckIfUserCanAnnoy(now, interaction)) return;
+    // if (!CheckIfUserCanAnnoy(now, interaction)) return;
 
     const user = interaction.options.getUser('utilisateur');
 
@@ -41,27 +49,48 @@ module.exports = {
       });
     }
 
-    if (!CheckIfUserCanBeAnnoy(now, interaction, user)) return;
+    // if (!CheckIfUserCanBeAnnoy(now, interaction, user)) return;
 
     LastAnnoyed.set(user.id, now);
     LastAnnoy.set(interaction.user.id, now);
 
-    const randomGif = gifs[Math.floor(Math.random() * gifs.length)];
-    const gifPath = path.join(__dirname, '../..', 'assets', randomGif);
+    const randomSuccessGif =
+      successgifs[Math.floor(Math.random() * successgifs.length)];
+    const randomFailGif = failgifs[Math.floor(Math.random() * failgifs.length)];
+    const gifPathSuccess = path.join(
+      __dirname,
+      '../..',
+      'assets/success',
+      randomSuccessGif
+    );
+    const gifPathFail = path.join(
+      __dirname,
+      '../..',
+      'assets/fail',
+      randomFailGif
+    );
     const shouldDelete = Math.floor(Math.random() * 5) !== 0;
 
-    const sentMessage = await interaction.reply({
-      content: `<@${user.id}>`,
-    });
+    await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
     if (shouldDelete) {
-      sentMessage.delete().catch(() => {});
+      const DeletedMessage = await interaction.channel.send({
+        content: `<@${user.id}>`,
+      });
+      DeletedMessage.delete().catch(() => {});
+      await interaction.followUp({
+        files: [gifPathSuccess],
+        flags: MessageFlags.Ephemeral,
+      });
+    } else {
+      const SentMessage = await interaction.channel.send({
+        content: `Hey <@${user.id}>, c'est <@${interaction.user.id}> qui a voulu t'embêter !`,
+      });
+      await interaction.followUp({
+        files: [gifPathFail],
+        flags: MessageFlags.Ephemeral,
+      });
     }
-
-    await interaction.followUp({
-      files: [gifPath],
-      flags: MessageFlags.Ephemeral,
-    });
   },
 };
 
