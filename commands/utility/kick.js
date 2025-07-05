@@ -16,11 +16,12 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction) {
-    const user = interaction.options.getMember('utilisateur');
-    if (user.permissions.has(PermissionsBitField.Flags.KickMembers)) {
-      await user.kick();
+    const member = interaction.member;
+    const target = interaction.options.getMember('utilisateur');
+    if (member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
+      await target.kick();
       await interaction.reply({
-        content: `${user.username} a été kick`,
+        content: `${target} a été kick`,
         flags: MessageFlags.Ephemeral,
       });
       console.log('Commande Kick effectué');
