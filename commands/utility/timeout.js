@@ -1,4 +1,8 @@
-const { SlashCommandBuilder } = require('discord.js');
+const {
+  SlashCommandBuilder,
+  PermissionsBitField,
+  MessageFlags,
+} = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -11,11 +15,12 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction) {
-    const member = interaction.options.getMember('utilisateur');
+    const member = interaction.member;
+    const target = interaction.options.getMember('utilisateur');
     if (member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
-      await member.timeout(3600_000);
+      await target.timeout(3600_000);
       await interaction.reply({
-        content: `${user.tag} a été timeout 1h`,
+        content: `${target} a été timeout 1h`,
         flags: MessageFlags.Ephemeral,
       });
       console.log('Commande Timeout effectué');

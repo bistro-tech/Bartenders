@@ -50,7 +50,7 @@ module.exports = {
     const gifPath = path.join(__dirname, '../..', 'assets', randomGif);
     const shouldDelete = Math.floor(Math.random() * 5) !== 0;
 
-    const sentMessage = await interaction.channel.send({
+    const sentMessage = await interaction.reply({
       content: `<@${interaction.user.id}> a annoy <@${user.id}>`,
     });
 
@@ -58,7 +58,7 @@ module.exports = {
       sentMessage.delete().catch(() => {});
     }
 
-    await interaction.reply({
+    await interaction.followUp({
       files: [gifPath],
       flags: MessageFlags.Ephemeral,
     });
