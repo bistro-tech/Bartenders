@@ -51,7 +51,7 @@ module.exports = {
     const shouldDelete = Math.floor(Math.random() * 5) !== 0;
 
     const sentMessage = await interaction.reply({
-      content: `<@${interaction.user.id}> a annoy <@${user.id}>`,
+      content: `<@${user.id}>`,
     });
 
     if (shouldDelete) {
