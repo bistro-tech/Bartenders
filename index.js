@@ -10,7 +10,7 @@ const {
 } = require('discord.js');
 
 require('dotenv').config();
-const token = process.env.DISCORD_Token;
+const token = process.env.DISCORD_TOKEN;
 
 const client = new Client({
   intents: [

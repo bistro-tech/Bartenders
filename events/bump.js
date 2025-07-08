@@ -1,7 +1,7 @@
-const DISBOARD = process.env.DisboardId;
-const CHANNEL_ID = process.env.channelId;
+const DISBOARD = process.env.DISBOARD_ID;
+const CHANNEL_ID = process.env.BUMP_CHANNEL_ID;
 const TWO_HOURS = 2 * 60 * 60 * 1000;
-const BARTENDER = process.env.BartenderId;
+const BARTENDER = process.env.BARTENDER_ID;
 
 module.exports = (client) => {
   console.log('Fonctionnalité du bump visible !');

@@ -1,10 +1,10 @@
 const axios = require('axios');
 
 module.exports = (client) => {
-  const twitchClientId = process.env.TwitchId;
-  const twitchClientSecret = process.env.TwitchToken;
-  const twitchStreamerName = 'Lxckyluck';
-  const notificationChannelId = process.env.TwitchChannelId;
+  const TWITCH_CLIENT_ID = process.env.TWITCH_ID;
+  const TWITCH_CLIENT_SECRET = process.env.TWITCH_TOKEN;
+  const TWITCH_STREAMER_NAME = 'Lxckyluck';
+  const NOTIFICATION_CHANNEL_ID = process.env.TWITCH_CHANNEL_ID;
 
   let wasLive = false;
   let twitchAccessToken = null;
@@ -16,8 +16,8 @@ module.exports = (client) => {
       null,
       {
         params: {
-          client_id: twitchClientId,
-          client_secret: twitchClientSecret,
+          client_id: TWITCH_CLIENT_ID,
+          client_secret: TWITCH_CLIENT_SECRET,
           grant_type: 'client_credentials',
         },
       }
@@ -32,17 +32,17 @@ module.exports = (client) => {
     );
   }
 
-  async function getValidTwitchToken() {
+  async function get_valid_twitch_token() {
     if (!twitchAccessToken || Date.now() >= tokenExpiresAt) {
       await refreshTwitchAccessToken();
     }
     return twitchAccessToken;
   }
 
-  async function isStreamerLive(username, clientId, accessToken) {
+  async function is_streamer_live(username, client_id, accessToken) {
     const response = await axios.get('https://api.twitch.tv/helix/streams', {
       headers: {
-        'Client-ID': clientId,
+        'Client-ID': client_id,
         Authorization: `Bearer ${accessToken}`,
       },
       params: {
@@ -52,10 +52,10 @@ module.exports = (client) => {
     return response.data.data.length > 0 ? response.data.data[0] : null;
   }
 
-  async function getStreamerProfile(username, clientId, accessToken) {
+  async function getStreamerProfile(username, client_id, accessToken) {
     const response = await axios.get('https://api.twitch.tv/helix/users', {
       headers: {
-        'Client-ID': clientId,
+        'Client-ID': client_id,
         Authorization: `Bearer ${accessToken}`,
       },
       params: {
@@ -71,18 +71,18 @@ module.exports = (client) => {
     setInterval(
       async () => {
         try {
-          const token = await getValidTwitchToken();
-          const stream = await isStreamerLive(
-            twitchStreamerName,
-            twitchClientId,
+          const token = await get_valid_twitch_token();
+          const stream = await is_streamer_live(
+            TWITCH_STREAMER_NAME,
+            TWITCH_CLIENT_ID,
             token
           );
           const profile = await getStreamerProfile(
-            twitchStreamerName,
-            twitchClientId,
+            TWITCH_STREAMER_NAME,
+            TWITCH_CLIENT_ID,
             token
           );
-          const channel = await client.channels.fetch(notificationChannelId);
+          const channel = await client.channels.fetch(NOTIFICATION_CHANNEL_ID);
 
           if (stream && !wasLive) {
             wasLive = true;
@@ -90,7 +90,7 @@ module.exports = (client) => {
             const embed = {
               color: 0x9146ff,
               title: `${profile.display_name} est en live !`,
-              url: `https://www.twitch.tv/${twitchStreamerName}`,
+              url: `https://www.twitch.tv/${TWITCH_STREAMER_NAME}`,
               author: {
                 name: profile.display_name,
                 icon_url: profile.profile_image_url,

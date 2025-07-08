@@ -54,6 +54,9 @@ module.exports = {
     LastAnnoyed.set(user.id, now);
     LastAnnoy.set(interaction.user.id, now);
 
+    console.log(LastAnnoy);
+    console.log(LastAnnoyed);
+
     const randomSuccessGif =
       successgifs[Math.floor(Math.random() * successgifs.length)];
     const randomFailGif = failgifs[Math.floor(Math.random() * failgifs.length)];
