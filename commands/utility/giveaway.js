@@ -49,10 +49,8 @@ module.exports = {
 
     await giveawayMessage.react('🎉');
 
-    // Timer jusqu'à la fin du giveaway
     setTimeout(async () => {
       try {
-        // On récupère à nouveau le message (car il peut avoir été modifié)
         const fetchedMsg = await giveawayMessage.fetch();
         const reaction = fetchedMsg.reactions.cache.get('🎉');
 
