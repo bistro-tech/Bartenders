@@ -1,5 +1,5 @@
 // const messageMap = new Map();
-// const logChannelId = process.env.LogChannelId;
+// const logBUMP_CHANNEL_ID = process.env.LogBUMP_CHANNEL_ID;
 
 // module.exports = (client) => {
 //   console.log('AntiRaid Actif !');
@@ -25,7 +25,7 @@
 //       try {
 //         const botMember = await message.guild.members.fetch(client.user.id);
 //         const authorMember = message.member;
-//         const logChannel = message.guild.channels.cache.get(logChannelId);
+//         const logChannel = message.guild.channels.cache.get(logBUMP_CHANNEL_ID);
 
 //         if (
 //           authorMember.roles.highest.position >=
