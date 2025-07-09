@@ -1,14 +1,13 @@
 CREATE DATABASE bistro;
 \c bistro
 
-
 CREATE TYPE difficulty_level AS ENUM ('Facile', 'Moyen', 'Difficile', 'Extreme');
 CREATE TYPE challenge_category AS ENUM ('Culture', 'Maths', 'Logique', 'Autre');
 
 CREATE TABLE users (
-    discord_id VARCHAR(18) PRIMARY KEY,
-    last_annoy TIMESTAMPTZ,
-    last_annoyed TIMESTAMPTZ,
+    discord_id VARCHAR(20) PRIMARY KEY,
+    last_annoy BIGINT,
+    last_annoyed BIGINT,
     total_point INT
 );
 
@@ -23,7 +22,7 @@ CREATE TABLE challenge (
 );
 
 CREATE TABLE user_challenge (
-    discord_id VARCHAR(18) NOT NULL,
+    discord_id VARCHAR(20) NOT NULL,
     challenge_id SERIAL NOT NULL,
     date_completed TIMESTAMPTZ,
     PRIMARY KEY (discord_id, challenge_id),
