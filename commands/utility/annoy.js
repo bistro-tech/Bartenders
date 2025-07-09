@@ -44,12 +44,20 @@ module.exports = {
       });
     }
 
+    await ensureUserExists(annoyer.id);
     await ensureUserExists(annoyed.id);
 
     const [annoyerData, annoyedData] = await Promise.all([
       getUser(annoyer.id),
       getUser(annoyed.id),
     ]);
+
+    if (!annoyerData || !annoyedData) {
+      return interaction.reply({
+        content: 'Impossible de récupérer les données des utilisateurs.',
+        ephemeral: true,
+      });
+    }
 
     if (!canAnnoy(now, annoyerData.last_annoy, interaction)) return;
     if (!canBeAnnoyed(now, annoyedData.last_annoyed, interaction)) return;
