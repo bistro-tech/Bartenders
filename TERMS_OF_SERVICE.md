@@ -16,7 +16,12 @@ Le Bot est fourni gratuitement, "tel quel", dans le but d'améliorer l'expérien
 
 - Commandes d'interaction fun (ex : `annoy`)
 - Systèmes de challenges éducatifs dans le domaine informatique
-- Commandes liées aux données (`get-data`, `delete-data`)
+
+### 1.1 Propriété des challenges
+
+Tout challenge créé via le Bot devient la propriété exclusive du serveur **Bistro Tech**.  
+En soumettant un challenge, vous acceptez de céder vos droits d’auteur sur ce contenu au profit de la communauté du serveur.  
+Cela permet sa modification, sa suppression ou sa réutilisation à des fins éducatives internes au serveur.
 
 ## 2. Responsabilités
 
@@ -59,7 +64,12 @@ The Bot is provided free of charge, "as is", with the goal of enhancing the expe
 
 - Fun interaction commands (e.g., `annoy`)
 - Educational challenges
-- Data-related commands (`get-data`, `delete-data`)
+
+### 1.1 Ownership of Challenges
+
+Any challenge created through the Bot becomes the exclusive property of the **Bistro Tech** server.  
+By submitting a challenge, you agree to transfer your authorship rights to the server community.  
+This allows it to be modified, removed, or reused for internal educational purposes.
 
 ## 2. Responsibilities
 

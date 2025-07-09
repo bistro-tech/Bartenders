@@ -25,9 +25,8 @@ Le Bot ne collecte **que votre identifiant Discord** (`user ID`) dans les cas su
 
 Les données sont utilisées uniquement pour :
 
-- Appliquer des règles spécifiques sur certaines commandes (`annoy`)
+- Appliquer des règles spécifiques sur la commande (`annoy`)
 - Suivre votre progression dans les challenges informatiques
-- Vous permettre de consulter ou supprimer vos données via les commandes `get-data` et `delete-data`
 
 ### 3. Accès aux données
 
@@ -37,8 +36,8 @@ Les données sont utilisées uniquement pour :
 ### 4. Conservation & suppression
 
 - Les données sont conservées uniquement tant qu'elles sont utiles aux fonctionnalités du Bot.
-- Vous pouvez **supprimer vos données** à tout moment avec la commande `delete-data`.
-- Vous pouvez **consulter vos données** via la commande `get-data`.
+- Vous pouvez **supprimer vos données** à tout moment en contactant un administrateur du serveur Bistro tech.
+- Vous pouvez **consulter vos données** en contactant un administrateur du serveur Bistro tech.
 
 ### 5. Partage des données
 
@@ -76,9 +75,8 @@ The Bot only collects your **Discord user ID** (`user ID`) in the following case
 
 The data is used only to:
 
-- Apply specific rules to certain commands (`annoy`)
+- Apply specific rules to this command (`annoy`)
 - Track your progress in computer science challenges
-- Allow you to view or delete your data via `get-data` and `delete-data` commands
 
 ### 3. Data Access
 
@@ -88,8 +86,8 @@ The data is used only to:
 ### 4. Data Retention & Deletion
 
 - Data is kept only as long as it is needed for the Bot’s features.
-- You can **delete your data** at any time using the `delete-data` command.
-- You can **view your data** using the `get-data` command.
+- You can **delete your data** at any time by contacting administrator of the Bistro tech server.
+- You can **view your data** at any time by contacting administrator of the Bistro tech server.
 
 ### 5. Data Sharing
 
