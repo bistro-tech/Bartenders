@@ -23,7 +23,7 @@ const failgifs = [
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('annoy-test')
+    .setName('annoy')
     .setDescription("Ping un utilisateur avec un gif pour l'embêter")
     .addUserOption((option) =>
       option
