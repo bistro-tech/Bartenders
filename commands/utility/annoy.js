@@ -40,7 +40,7 @@ module.exports = {
     if (!annoyer || !annoyed) {
       return interaction.reply({
         content: 'Utilisateur invalide.',
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
     }
 
@@ -55,7 +55,7 @@ module.exports = {
     if (!annoyerData || !annoyedData) {
       return interaction.reply({
         content: 'Impossible de récupérer les données des utilisateurs.',
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
     }
 
@@ -159,7 +159,7 @@ function canAnnoy(now, lastAnnoyTimestamp, interaction) {
     const formatted = formatTime(timeLeft);
     interaction.reply({
       content: `Tu as déjà annoy durant les 2 dernières heures, il te reste ${formatted} avant de pouvoir à nouveau embêter quelqu'un !`,
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
     const member = interaction.member;
     if (member && member.timeout) {
@@ -174,7 +174,7 @@ function canBeAnnoyed(now, lastAnnoyedTimestamp, interaction) {
   if (lastAnnoyedTimestamp && now - lastAnnoyedTimestamp < TWO_HOURS) {
     interaction.reply({
       content: 'Cet utilisateur a déjà été embêté récemment.',
-      ephemeral: true,
+      flags: MessageFlags.Ephemeral,
     });
     return false;
   }
