@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, MessageFlags } = require('discord.js');
 
 require('dotenv').config();
 const Chief = process.env.ROLE_CHIEF;
@@ -31,7 +31,7 @@ module.exports = {
     if (!member.roles.cache.some((role) => role.id === Chief)) {
       return interaction.reply({
         content: "Tu n'as pas la permission d'utiliser cette commande.",
-        ephemeral: true,
+        flags: MessageFlags.Ephemeral,
       });
     }
 

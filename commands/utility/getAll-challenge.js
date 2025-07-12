@@ -6,31 +6,23 @@ const API_BASE_URL_USER = `${HOST}/users`;
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('get-challenge')
-    .setDescription(
-      "Renvoie le contexte et l'input d'un challenge à l'aide de son id"
-    )
-    .addIntegerOption((option) =>
-      option.setName('id').setDescription('Id du challenge').setRequired(true)
-    ),
-
+    .setName('getall-challenge')
+    .setDescription('Obtiens la liste des challenges non résolu'),
   async execute(interaction) {
     const member = interaction.member;
-    const challengeId = interaction.options.getInteger('id');
-
+    const memberData = await getUser(member.id);
     await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
     try {
       await ensureUserExists(member.id);
 
-      const memberData = await getUser(member.id);
       if (!memberData) {
         return interaction.editReply({
-          content: 'Impossible de récupérer les données utilisateur.',
+          content: 'Impossible de récupérer les données des utilisateurs.',
         });
       }
 
-      await getChallenge(interaction, challengeId);
+      await getChallenge(interaction, member.id);
     } catch (error) {
       console.error(error);
       await interaction.editReply({
@@ -48,6 +40,7 @@ async function getUser(discordId) {
 
 async function ensureUserExists(discordId) {
   let user = await getUser(discordId);
+
   if (!user) {
     const createRes = await fetch(`${API_BASE_URL_USER}/CreateUser`, {
       method: 'POST',
@@ -69,29 +62,29 @@ async function ensureUserExists(discordId) {
   return user;
 }
 
-async function getChallenge(interaction, challengeId) {
-  const res = await fetch(`${API_BASE_URL_CHALLENGE}/content/${challengeId}`);
+async function getChallenge(interaction, discord_id) {
+  const res = await fetch(`${API_BASE_URL_CHALLENGE}/available/${discord_id}`);
   if (!res.ok) {
     return interaction.editReply({
-      content: `Aucun challenge trouvé avec l'ID ${challengeId}.`,
+      content: `Bravo, tu as terminé tous les challenges ! D'autres arrivent très bientôt, reste à l'affût. 🎉`,
     });
   }
 
   const data = await res.json();
 
-  if (!Array.isArray(data) || data.length === 0) {
-    return interaction.editReply({
-      content: `⚠️ Aucun contenu trouvé pour le challenge ${challengeId}.`,
-    });
-  }
-
-  const { contexte, input } = data[0];
+  const formatted = data
+    .map((challenge, index) => {
+      return (
+        `**${index + 1}. ${challenge.challenge_name}**\n` +
+        `> ID : ${challenge.challenge_id}\n` +
+        `> 💠 Difficulté : ${challenge.difficulty}\n` +
+        `> 🧠 Catégorie : ${challenge.category}\n` +
+        `> 🏅 Points : ${challenge.point_obtainable}`
+      );
+    })
+    .join('\n\n');
 
   return interaction.editReply({
-    content:
-      `📌 **Contexte du challenge \`${challengeId}\` :**\n\n` +
-      `${contexte}\n\n` +
-      `**Lien vers l'input :**\n` +
-      `🔗 ${input}`,
+    content: `📋 **Liste des challenges disponibles :**\n\n${formatted}`,
   });
 }

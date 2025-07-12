@@ -24,7 +24,7 @@ CREATE TABLE challenge (
 CREATE TABLE user_challenge (
     discord_id VARCHAR(20) NOT NULL,
     challenge_id SERIAL NOT NULL,
-    date_completed TIMESTAMPTZ,
+    date_completed BIGINT,
     PRIMARY KEY (discord_id, challenge_id),
     FOREIGN KEY (discord_id) REFERENCES users(discord_id),
     FOREIGN KEY (challenge_id) REFERENCES Challenge(challenge_id)
