@@ -18,7 +18,8 @@ CREATE TABLE challenge (
     point_obtainable INT,
     difficulty difficulty_level,
     category challenge_category,
-    answer VARCHAR(32)
+    answer VARCHAR(32),
+    input TEXT
 );
 
 CREATE TABLE user_challenge (

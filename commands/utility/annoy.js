@@ -4,6 +4,7 @@ require('dotenv').config();
 const HOST = process.env.HOST;
 const TWO_HOURS = 2 * 60 * 60 * 1000;
 const API_BASE_URL = `${HOST}/users`;
+const LOG_ID = process.env.LOG_CHANNEL_ID;
 
 const successgifs = [
   'alley-oop-luka-doncic.gif',
@@ -32,10 +33,11 @@ module.exports = {
         .setRequired(true)
     ),
 
-  async execute(interaction) {
+  async execute(interaction, client) {
     const now = Date.now();
     const annoyer = interaction.user;
     const annoyed = interaction.options.getUser('utilisateur');
+    const Log_Channel = client.channels.cache.get(LOG_ID);
 
     if (!annoyer || !annoyed) {
       return interaction.reply({
@@ -58,6 +60,8 @@ module.exports = {
         flags: MessageFlags.Ephemeral,
       });
     }
+
+    Log_Channel.send(`${annoyer.tag} a voulu/annoy ${annoyed.tag}`);
 
     if (!canAnnoy(now, annoyerData.last_annoy, interaction)) return;
     if (!canBeAnnoyed(now, annoyedData.last_annoyed, interaction)) return;
