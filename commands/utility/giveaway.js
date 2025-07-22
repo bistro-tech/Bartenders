@@ -40,7 +40,7 @@ module.exports = {
     const description = interaction.options.getString('description');
 
     const endTimestamp = Math.floor((Date.now() + duration) / 1000);
-    const giveawayContent = `**GIVEAWAY**\n${description ?? ''}\nRécompense : **${reward}**\nRéagis avec 🎉 pour participer !\nFin dans <t:${endTimestamp}:R>`;
+    const giveawayContent = `**GIVEAWAY**\n${description ?? ''}\nRécompense : **${reward}**\nRéagis avec 🎉 pour participer ! <@&1283415299504341104> \nFin dans <t:${endTimestamp}:R>`;
 
     const giveawayMessage = await interaction.reply({
       content: giveawayContent,
