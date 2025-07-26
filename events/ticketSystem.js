@@ -76,6 +76,7 @@ module.exports = (client) => {
       const ticketCategoryId = process.env.TICKET_CATEGORY_ID;
       const roleChiefId = process.env.ROLE_CHIEF;
       const roleStaffId = process.env.ROLE_STAFF;
+      const bartenderId = process.env.BARTENDER_ID;
       const ticketChannel = await guild.channels.create({
         name: `${ticketType}-${user.username.toLowerCase()}`,
         type: ChannelType.GuildText,
@@ -95,6 +96,24 @@ module.exports = (client) => {
           },
           {
             id: roleChiefId,
+            allow: [
+              PermissionFlagsBits.ViewChannel,
+              PermissionFlagsBits.SendMessages,
+              PermissionFlagsBits.ReadMessageHistory,
+              PermissionFlagsBits.ManageMessages,
+            ],
+          },
+          {
+            id: roleStaffId,
+            allow: [
+              PermissionFlagsBits.ViewChannel,
+              PermissionFlagsBits.SendMessages,
+              PermissionFlagsBits.ReadMessageHistory,
+              PermissionFlagsBits.ManageMessages,
+            ],
+          },
+          {
+            id: bartenderId,
             allow: [
               PermissionFlagsBits.ViewChannel,
               PermissionFlagsBits.SendMessages,
