@@ -22,7 +22,7 @@ const client = new Client({
 });
 require('./events/twitchLive')(client);
 require('./events/bump')(client);
-// require('./events/antiRaid')(client);
+require('./events/ticketSystem')(client);
 
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
